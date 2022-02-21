@@ -7,8 +7,9 @@ RUN yum install sudo wget gcc gcc-c++ \
                 
 ENV SOFTWARE_DIR=/home/Software \
     GCC_VERSION=11.2.0
-    
-RUN mkdir -p /home/Software ${SOFTWARE_DIR}/src/gcc/ ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION} ${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}
+
+RUN rm -rf $SOFTWARE_DIR && \
+    mkdir -p /home/Software ${SOFTWARE_DIR}/src/gcc/ ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION} ${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}
 
 WORKDIR ${SOFTWARE_DIR}/src/gcc/
 
@@ -25,3 +26,6 @@ ENV PATH=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/bin/:${SOFTWARE_DIR}/ins
     LD_LIBRARY_PATH=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/lib64:$LD_LIBRARY_PATH \
     CC=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/bin/gcc \
     CXX=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/bin/g++
+
+
+RUN rm -rf $SOFTWARE_DIR/build/gcc/gcc-${GCC_VERSION} && rm -rf $SOFTWARE_DIR/src/gcc/gcc-${GCC_VERSION} 
