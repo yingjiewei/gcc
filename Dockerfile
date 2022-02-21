@@ -19,7 +19,7 @@ RUN wget --no-check-certificate https://mirrorservice.org/sites/sourceware.org/p
 WORKDIR ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION}
 
 RUN ${SOFTWARE_DIR}/src/gcc/gcc-${GCC_VERSION}/configure --prefix=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/ --disable-multilib && \
-    make -j100 && \
+    make -j20 && \
     make install
 
 ENV PATH=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/bin/:${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/bin64/:$PATH \
