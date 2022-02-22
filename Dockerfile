@@ -8,12 +8,9 @@ RUN yum install sudo wget gcc gcc-c++ \
 ENV SOFTWARE_DIR=/home/Software \
     GCC_VERSION=11.2.0
 
-RUN rm -rf ${SOFTWARE_DIR} && \
-    mkdir -p /home/Software ${SOFTWARE_DIR}/src/gcc/ ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION} ${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}
-
-WORKDIR ${SOFTWARE_DIR}/src/gcc/
-
-RUN wget --no-check-certificate https://mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz; \
+RUN mkdir -p /home/Software ${SOFTWARE_DIR}/src/gcc/ ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION} ${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}; \
+    cd ${SOFTWARE_DIR}/src/gcc/; \
+    wget --no-check-certificate https://mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz; \
     tar xvf gcc-${GCC_VERSION}.tar.gz; \
     cd ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION}; \
     ${SOFTWARE_DIR}/src/gcc/gcc-${GCC_VERSION}/configure --prefix=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/ --disable-multilib; \
