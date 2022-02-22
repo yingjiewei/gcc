@@ -22,7 +22,7 @@ RUN ${SOFTWARE_DIR}/src/gcc/gcc-${GCC_VERSION}/configure --prefix=${SOFTWARE_DIR
     make -j "$(nproc)"; \
     make install; \
     rm -rf ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION}; \
-    rm -rf ${SOFTWARE_DIR}/src/gcc/gcc-${GCC_VERSION}
+    rm -rf ${SOFTWARE_DIR}/src/gcc/gcc*
 
 
 ENV PATH=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/bin/:${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/bin64/:$PATH \
