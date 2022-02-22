@@ -13,12 +13,10 @@ RUN rm -rf ${SOFTWARE_DIR} && \
 
 WORKDIR ${SOFTWARE_DIR}/src/gcc/
 
-RUN wget --no-check-certificate https://mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz && \
-   tar xvf gcc-${GCC_VERSION}.tar.gz
-   
-WORKDIR ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION}
-
-RUN ${SOFTWARE_DIR}/src/gcc/gcc-${GCC_VERSION}/configure --prefix=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/ --disable-multilib; \
+RUN wget --no-check-certificate https://mirrorservice.org/sites/sourceware.org/pub/gcc/releases/gcc-${GCC_VERSION}/gcc-${GCC_VERSION}.tar.gz; \
+    tar xvf gcc-${GCC_VERSION}.tar.gz; \
+    cd ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION}; \
+    ${SOFTWARE_DIR}/src/gcc/gcc-${GCC_VERSION}/configure --prefix=${SOFTWARE_DIR}/install/gcc/gcc-${GCC_VERSION}/ --disable-multilib; \
     make -j "$(nproc)"; \
     make install; \
     rm -rf ${SOFTWARE_DIR}/build/gcc/gcc-${GCC_VERSION}; \
